@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Teko.ERP.Shared\Teko.ERP.Shared.csproj" />
+    <ProjectReference Include="..\Teko.ERP.Sql\Teko.ERP.Sql.csproj" />
+  </ItemGroup>
+
+</Project>

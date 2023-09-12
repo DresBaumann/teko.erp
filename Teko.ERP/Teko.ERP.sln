@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ERP", "ERP", "{545C841E-2FD7-4A14-BDC3-19F72DC3D687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.ERP.Sql", "Teko.ERP.Sql\Teko.ERP.Sql.csproj", "{224DD0B8-FD51-4929-818E-0E2B191E7972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.ERP.Core", "Teko.ERP.Core\Teko.ERP.Core.csproj", "{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.ERP.Api", "Teko.ERP.Api\Teko.ERP.Api.csproj", "{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.ERP.Shared", "Teko.ERP.Shared\Teko.ERP.Shared.csproj", "{7E7128B8-3162-46C1-8F3F-CD2023C833C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{224DD0B8-FD51-4929-818E-0E2B191E7972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224DD0B8-FD51-4929-818E-0E2B191E7972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224DD0B8-FD51-4929-818E-0E2B191E7972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224DD0B8-FD51-4929-818E-0E2B191E7972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7128B8-3162-46C1-8F3F-CD2023C833C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7128B8-3162-46C1-8F3F-CD2023C833C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7128B8-3162-46C1-8F3F-CD2023C833C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7128B8-3162-46C1-8F3F-CD2023C833C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{224DD0B8-FD51-4929-818E-0E2B191E7972} = {545C841E-2FD7-4A14-BDC3-19F72DC3D687}
+		{DD898E4D-7721-46F9-B5CF-1D50AE48CDE3} = {545C841E-2FD7-4A14-BDC3-19F72DC3D687}
+		{C86512EA-CF88-4C4A-BC4E-6BB9ADECF503} = {545C841E-2FD7-4A14-BDC3-19F72DC3D687}
+		{7E7128B8-3162-46C1-8F3F-CD2023C833C4} = {545C841E-2FD7-4A14-BDC3-19F72DC3D687}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DE447EB-60A9-48B7-9CC1-B6E7EE3F2DF2}
+	EndGlobalSection
+EndGlobal
