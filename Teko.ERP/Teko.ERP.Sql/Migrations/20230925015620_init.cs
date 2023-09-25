@@ -6,63 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Teko.ERP.Sql.Migrations
 {
     /// <inheritdoc />
-    public partial class addfunctionality : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Articles_Locations_LocationId",
-                table: "Articles");
-
-            migrationBuilder.DropColumn(
-                name: "Amount",
-                table: "Articles");
-
-            migrationBuilder.RenameColumn(
-                name: "LocationId",
-                table: "Articles",
-                newName: "TenantId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Articles_LocationId",
-                table: "Articles",
-                newName: "IX_Articles_TenantId");
-
-            migrationBuilder.AddColumn<int>(
-                name: "TenantId",
-                table: "Locations",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.CreateTable(
-                name: "ArticleStocks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleStocks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArticleStocks_Articles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArticleStocks_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Tenants",
                 columns: table => new
@@ -76,6 +24,28 @@ namespace Teko.ERP.Sql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenants", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Articles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Articles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Articles_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +100,28 @@ namespace Teko.ERP.Sql.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -155,7 +147,7 @@ namespace Teko.ERP.Sql.Migrations
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,6 +176,33 @@ namespace Teko.ERP.Sql.Migrations
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleStocks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleStocks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArticleStocks_Articles_ArticleId",
+                        column: x => x.ArticleId,
+                        principalTable: "Articles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ArticleStocks_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -205,12 +224,13 @@ namespace Teko.ERP.Sql.Migrations
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ArticleOrder_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,18 +251,14 @@ namespace Teko.ERP.Sql.Migrations
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ArticleSale_Sales_SaleId",
                         column: x => x.SaleId,
                         principalTable: "Sales",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_TenantId",
-                table: "Locations",
-                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArticleOrder_ArticleId",
@@ -253,6 +269,11 @@ namespace Teko.ERP.Sql.Migrations
                 name: "IX_ArticleOrder_OrderId",
                 table: "ArticleOrder",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_TenantId",
+                table: "Articles",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArticleSale_ArticleId",
@@ -285,6 +306,11 @@ namespace Teko.ERP.Sql.Migrations
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Locations_TenantId",
+                table: "Locations",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CreditorId",
                 table: "Orders",
                 column: "CreditorId");
@@ -303,35 +329,11 @@ namespace Teko.ERP.Sql.Migrations
                 name: "IX_Sales_TenantId",
                 table: "Sales",
                 column: "TenantId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Articles_Tenants_TenantId",
-                table: "Articles",
-                column: "TenantId",
-                principalTable: "Tenants",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Locations_Tenants_TenantId",
-                table: "Locations",
-                column: "TenantId",
-                principalTable: "Tenants",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Articles_Tenants_TenantId",
-                table: "Articles");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Locations_Tenants_TenantId",
-                table: "Locations");
-
             migrationBuilder.DropTable(
                 name: "ArticleOrder");
 
@@ -348,6 +350,12 @@ namespace Teko.ERP.Sql.Migrations
                 name: "Sales");
 
             migrationBuilder.DropTable(
+                name: "Articles");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
                 name: "Creditors");
 
             migrationBuilder.DropTable(
@@ -355,39 +363,6 @@ namespace Teko.ERP.Sql.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tenants");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Locations_TenantId",
-                table: "Locations");
-
-            migrationBuilder.DropColumn(
-                name: "TenantId",
-                table: "Locations");
-
-            migrationBuilder.RenameColumn(
-                name: "TenantId",
-                table: "Articles",
-                newName: "LocationId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Articles_TenantId",
-                table: "Articles",
-                newName: "IX_Articles_LocationId");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Amount",
-                table: "Articles",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Articles_Locations_LocationId",
-                table: "Articles",
-                column: "LocationId",
-                principalTable: "Locations",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
     }
 }

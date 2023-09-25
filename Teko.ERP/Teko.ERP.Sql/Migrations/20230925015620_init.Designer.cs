@@ -12,8 +12,8 @@ using Teko.ERP.Sql;
 namespace Teko.ERP.Sql.Migrations
 {
     [DbContext(typeof(ErpDbContext))]
-    [Migration("20230925002935_addfunctionality")]
-    partial class addfunctionality
+    [Migration("20230925015620_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -341,7 +341,7 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tenant");
@@ -352,12 +352,13 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Teko.ERP.Shared.Entities.Order", null)
                         .WithMany("ArticleOrders")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Article");
                 });
@@ -367,12 +368,13 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Teko.ERP.Shared.Entities.Sale", null)
                         .WithMany("ArticleSales")
-                        .HasForeignKey("SaleId");
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Article");
                 });
@@ -382,7 +384,7 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Teko.ERP.Shared.Entities.Location", "Location")
@@ -423,7 +425,7 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tenant");
@@ -432,7 +434,7 @@ namespace Teko.ERP.Sql.Migrations
             modelBuilder.Entity("Teko.ERP.Shared.Entities.Order", b =>
                 {
                     b.HasOne("Teko.ERP.Shared.Entities.Creditor", "Creditor")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("CreditorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -440,7 +442,7 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Creditor");
@@ -459,12 +461,17 @@ namespace Teko.ERP.Sql.Migrations
                     b.HasOne("Teko.ERP.Shared.Entities.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Debitor");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("Teko.ERP.Shared.Entities.Creditor", b =>
+                {
+                    b.Navigation("Claims");
                 });
 
             modelBuilder.Entity("Teko.ERP.Shared.Entities.Debitor", b =>

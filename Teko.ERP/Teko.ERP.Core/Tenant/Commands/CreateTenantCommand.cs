@@ -15,7 +15,7 @@ public class CreateTenantCommand
 	{
 		await _tenantRepository.AddTenant(new Shared.Entities.Tenant
 		{
-			Name = request.Name, FinanceModuleActive = request.FinanceModuleActive, OrderModuleActive = request.OrderModuleActive
+			Name = request.Name, FinanceModuleActive = request.FinanceModuleActive, OrderModuleActive = request.OrderModuleActive, StorageModuleActive = request.StorageModuleActive
 		});
 	}
 }

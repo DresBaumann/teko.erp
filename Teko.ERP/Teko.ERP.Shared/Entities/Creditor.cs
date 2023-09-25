@@ -4,5 +4,5 @@ public class Creditor : Account
 {
 	public string Iban { get; set; }
 
-	private List<Order> Claims { get; set; }
+	public List<Order> Claims { get; set; }
 }

@@ -5,25 +5,25 @@
 namespace Teko.ERP.Sql.Migrations
 {
     /// <inheritdoc />
-    public partial class addDescriptionToLocation : Migration
+    public partial class tenantFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Locations",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<bool>(
+                name: "StorageModuleActive",
+                table: "Tenants",
+                type: "bit",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: false);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Locations");
+                name: "StorageModuleActive",
+                table: "Tenants");
         }
     }
 }

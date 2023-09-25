@@ -25,6 +25,7 @@ public class CreateDebitorCommand
 			City = request.City,
 			PhoneNumber = request.PhoneNumber,
 			Plz = request.Plz,
+			Street = request.Street,
 			Tenant = tenant
 		});
 	}

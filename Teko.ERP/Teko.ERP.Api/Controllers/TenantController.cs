@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Teko.ERP.Core.Tenant.Commands;
 using Teko.ERP.Core.Tenant.Queries;
+using Teko.ERP.Shared.Entities;
 
 namespace Teko.ERP.Api.Controllers;
 
@@ -15,8 +16,8 @@ public class TenantController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task Post([FromServices] GetTenantsQuery query)
+	public async Task<List<Tenant>> Post([FromServices] GetTenantsQuery query)
 	{
-		await query.ExecuteAsync();
+		return await query.ExecuteAsync();
 	}
 }
