@@ -17,7 +17,8 @@ public class CreateArticleCommand
 		await _articleRepository.AddArticle(new Article
 		{
 			Name = request.Name,
-			Price = request.Price
+			Price = request.Price,
+			Description = request.Description
 		});
 	}
 }
